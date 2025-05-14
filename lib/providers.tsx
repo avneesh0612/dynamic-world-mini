@@ -8,20 +8,39 @@ import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { config } from "@/lib/wagmi";
 import { MiniKitProvider } from "@worldcoin/minikit-js/minikit-provider";
 import { MiniKit } from "@worldcoin/minikit-js";
+import { useState, useEffect } from "react";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
+  const [isMiniKitInstalled, setIsMiniKitInstalled] = useState<boolean | null>(
+    null
+  );
 
-  console.log(MiniKit.isInstalled());
+  useEffect(() => {
+    // Check if MiniKit is installed
+    const checkMiniKitInstallation = async () => {
+      const isInstalled = await MiniKit.isInstalled();
+      setIsMiniKitInstalled(isInstalled);
+      console.log("MiniKit installed:", isInstalled);
+    };
+
+    checkMiniKitInstallation();
+  }, []);
+
+  useEffect(() => {
+    // Dynamic import for client-side only
+    import("eruda").then((eruda) => {
+      eruda.default.init();
+    });
+  }, []);
 
   return (
     <DynamicContextProvider
       theme="auto"
       settings={{
         environmentId:
-          // replace with your own environment ID
           process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID ||
-          "2762a57b-faa4-41ce-9f16-abff9300e2c9",
+          "9ca34db1-1322-40a5-9991-8eaeaecf7c6d",
         walletConnectors: [EthereumWalletConnectors],
       }}
     >
