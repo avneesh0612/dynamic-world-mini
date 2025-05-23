@@ -128,3 +128,72 @@
 .container.dark .footer-image.dark {
   display: inline;
 }
+
+/* Nonce Section Styles */
+.nonce-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+}
+
+.nonce-section.light {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nonce-section.dark {
+  background-color: #1e1e2d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nonce-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.nonce-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nonce-button:hover {
+  background-color: #2563eb;
+}
+
+.nonce-button:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.nonce-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.nonce-error {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #ef4444;
+}
+
+.dark .nonce-error {
+  background-color: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #f87171;
+}
