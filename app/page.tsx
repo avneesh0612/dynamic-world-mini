@@ -3,8 +3,8 @@
 import DynamicMethods from "@/app/components/Methods";
 import WorldMethods from "@/app/components/WorldMethods";
 import { useDarkMode } from "@/lib/useDarkMode";
-import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
-import { MiniKit } from "@worldcoin/minikit-js";
+// import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
+// import { MiniKit } from "@worldcoin/minikit-js";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./page.css";
@@ -17,39 +17,66 @@ export default function Main() {
   const [nonce, setNonce] = useState<string | null>(null);
   const [nonceLoading, setNonceLoading] = useState(false);
   const [nonceError, setNonceError] = useState<string | null>(null);
+  const [testData, setTestData] = useState<any>(null);
+  const [testDataLoading, setTestDataLoading] = useState(false);
 
-  useEffect(() => {
-    // Check if MiniKit is installed
-    console.log("Checking MiniKit installation...");
-    const checkMiniKitInstallation = async () => {
-      console.log("Checking MiniKit installation...");
-      const isInstalled = await MiniKit.install();
+  // useEffect(() => {
+  //   // Check if MiniKit is installed
+  //   console.log("Checking MiniKit installation...");
+  //   const checkMiniKitInstallation = async () => {
+  //     console.log("Checking MiniKit installation...");
+  //     const isInstalled = await MiniKit.install();
 
-      console.log("MiniKit installed:", isInstalled);
+  //     console.log("MiniKit installed:", isInstalled);
 
-      setIsMiniKitInstalled(true);
-    };
+  //     setIsMiniKitInstalled(true);
+  //   };
 
-    checkMiniKitInstallation();
-  }, [MiniKit]);
-  
+  //   checkMiniKitInstallation();
+  // }, [MiniKit]);
+
   const fetchNonce = async () => {
     setNonceLoading(true);
     setNonceError(null);
-    
-    const environmentId = process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID || "9ca34db1-1322-40a5-9991-8eaeaecf7c6d";
-    const options = { method: 'GET' };
-    
+
+    const environmentId =
+      process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID ||
+      "9ca34db1-1322-40a5-9991-8eaeaecf7c6d";
+    const options = { method: "GET" };
+
     try {
-      const response = await fetch(`https://app.dynamicauth.com/api/v0/sdk/${environmentId}/nonce`, options);
+      const response = await fetch(
+        `https://app.dynamicauth.com/api/v0/sdk/${environmentId}/nonce`,
+        options
+      );
       const data = await response.json();
-      console.log('Nonce response:', data);
+      console.log("Nonce response:", data);
       setNonce(data.nonce);
     } catch (err) {
-      console.error('Error fetching nonce:', err);
-      setNonceError(err instanceof Error ? err.message : 'Failed to fetch nonce');
+      console.error("Error fetching nonce:", err);
+      setNonceError(
+        err instanceof Error ? err.message : "Failed to fetch nonce"
+      );
     } finally {
       setNonceLoading(false);
+    }
+  };
+
+  const fetchTestData = async () => {
+    setTestDataLoading(true);
+    setTestData(null);
+
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/todos/1"
+      );
+      const data = await response.json();
+      console.log("Test data:", data);
+      setTestData(data);
+    } catch (err) {
+      console.error("Error fetching test data:", err);
+    } finally {
+      setTestDataLoading(false);
     }
   };
 
@@ -99,19 +126,21 @@ export default function Main() {
       )}
 
       <div className="modal">
-        <DynamicWidget />
+        {/* <DynamicWidget /> */}
         <div className={`nonce-section ${isDarkMode ? "dark" : "light"}`}>
           <h3>Dynamic Nonce API</h3>
-          <button 
-            className="nonce-button" 
+          <button
+            className="nonce-button"
             onClick={fetchNonce}
             disabled={nonceLoading}
           >
-            {nonceLoading ? 'Fetching...' : 'Get Nonce'}
+            {nonceLoading ? "Fetching..." : "Get Nonce"}
           </button>
           {nonce && (
             <div className="nonce-result">
-              <p>Nonce: <strong>{nonce}</strong></p>
+              <p>
+                Nonce: <strong>{nonce}</strong>
+              </p>
             </div>
           )}
           {nonceError && (
@@ -120,6 +149,24 @@ export default function Main() {
             </div>
           )}
         </div>
+
+        <div className={`test-data-section ${isDarkMode ? "dark" : "light"}`}>
+          <h3>Test API</h3>
+          <button
+            className="test-data-button"
+            onClick={fetchTestData}
+            disabled={testDataLoading}
+          >
+            {testDataLoading ? "Fetching..." : "Fetch Test Data"}
+          </button>
+          {testData && (
+            <div className="test-data-result">
+              <h4>Response:</h4>
+              <pre>{JSON.stringify(testData, null, 2)}</pre>
+            </div>
+          )}
+        </div>
+
         <DynamicMethods isDarkMode={isDarkMode} />
         <WorldMethods isDarkMode={isDarkMode} />
       </div>

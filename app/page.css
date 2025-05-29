@@ -197,3 +197,76 @@
   border-color: rgba(248, 113, 113, 0.3);
   color: #f87171;
 }
+
+/* Test Data Section Styles */
+.test-data-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+}
+
+.test-data-section.light {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.test-data-section.dark {
+  background-color: #1e1e2d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.test-data-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.test-data-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.test-data-button:hover {
+  background-color: #059669;
+}
+
+.test-data-button:disabled {
+  background-color: #6ee7b7;
+  cursor: not-allowed;
+}
+
+.test-data-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  overflow-x: auto;
+}
+
+.test-data-result h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.test-data-result pre {
+  margin: 0;
+  font-family: monospace;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+}
+
+.dark .test-data-result {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+}
