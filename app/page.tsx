@@ -8,6 +8,7 @@ import { useDarkMode } from "@/lib/useDarkMode";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./page.css";
+import { MiniKit } from "@worldcoin/minikit-js";
 
 export default function Main() {
   const { isDarkMode } = useDarkMode();
@@ -20,20 +21,20 @@ export default function Main() {
   const [testData, setTestData] = useState<any>(null);
   const [testDataLoading, setTestDataLoading] = useState(false);
 
-  // useEffect(() => {
-  //   // Check if MiniKit is installed
-  //   console.log("Checking MiniKit installation...");
-  //   const checkMiniKitInstallation = async () => {
-  //     console.log("Checking MiniKit installation...");
-  //     const isInstalled = await MiniKit.install();
+  useEffect(() => {
+    // Check if MiniKit is installed
+    console.log("Checking MiniKit installation...");
+    const checkMiniKitInstallation = async () => {
+      console.log("Checking MiniKit installation...");
+      const isInstalled = await MiniKit.install();
 
-  //     console.log("MiniKit installed:", isInstalled);
+      console.log("MiniKit installed:", isInstalled);
 
-  //     setIsMiniKitInstalled(true);
-  //   };
+      setIsMiniKitInstalled(true);
+    };
 
-  //   checkMiniKitInstallation();
-  // }, [MiniKit]);
+    checkMiniKitInstallation();
+  }, [MiniKit]);
 
   const fetchNonce = async () => {
     setNonceLoading(true);
